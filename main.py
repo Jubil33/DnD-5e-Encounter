@@ -14,7 +14,7 @@ for item in data:
 #next idea would be to create an array of Monsters to meet this option, which would be great. 
 #mon1 = Monster("asdf")
 for e in monsters:
-    print(e.name, ' ', e.meta)
+    print(e.name, ' ', e.meta, ' ', e.traits)
 #mon2 = Monster("asdf")
 print('hello!')
 #print(mon1, '/n')
