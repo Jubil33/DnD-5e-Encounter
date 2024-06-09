@@ -11,11 +11,13 @@ monsters = []
 for item in data:
     monsters.append(Monster(item))
    
-#next idea would be to create an array of Monsters to meet this option, which would be great. 
+#completed creating a monsters now I need to create some interpretors for meta, senses, dmg immunitites, traits, actions, legactions,
+
 #mon1 = Monster("asdf")
 for e in monsters:
-    print(e.name, ' ', e.meta, ' ', e.traits)
+    print(e.name, ' ', e.action)
 #mon2 = Monster("asdf")
+
 print('hello!')
 #print(mon1, '/n')
 #print(mon2)
