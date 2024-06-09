@@ -16,26 +16,23 @@ class action:
         self.generateAction()
 
     def generateAction(self):
-        #parsed = HTMLParser.feed(self.strAction)
-        #actionSplit = self.strAction.split('</p>')
-        #delim='</p>'
-        #for a in actionSplit:
-            #a+delim
+        #regex for title(name) and body(data)
         title_pattern = re.compile(r'<strong>(.*?)</strong>', re.DOTALL)
         data_pattern = re.compile(r'</em>(.*?)</p>', re.DOTALL)
 
-        # Extract title
+        # Extract name and body
         title_match = title_pattern.search(self.strAction)
         self.name = title_match.group(1).strip() if title_match else ""
 
         data_match = data_pattern.search(self.strAction)
         self.body = data_match.group(1).strip() if data_match else ""
 
-        #clean up data
+        #clean up data - via removing data surrounded by <>
         if self.name!="":
             self.name = re.sub(r'<.*?>', '', self.name)
         if self.body!="":
             self.body = re.sub(r'<.*?>', '', self.body)
-        
+
+    #str return statement  
     def __str__(self) -> str:
         return f"{self.name} {self.body}"

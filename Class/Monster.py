@@ -3,7 +3,6 @@ from Class.action import action
 # Monster class:
 # this class is defined as a monster it will include a couple of fields such as stat and monster
 #Fields: Name, meta, AC, HP Speed, STR
- 
 class Monster:
     name=""
     ac=""
@@ -28,9 +27,9 @@ class Monster:
     img=""
     challenge=""
 
-    def __init__(self,monsterDict):#, name, meta, AC, HP, Speed, STR, DEX, CON, INT, WIS, CHA, SThrows, Skills, DmgImmunities,Senses, Lang, Challenge, Traits, Actions, LegActions): #,img_URl):
+    #initialize monster, input a monster dictionary and loop through it's items setting the key and value for each of them
+    def __init__(self,monsterDict):
         for key,value in monsterDict.items():
-            #print(items)
             if(key=='name'):
                 self.name=value
             elif(key=='meta'):
@@ -68,7 +67,10 @@ class Monster:
                 self.actions=self.generateActions(value)
             elif(key=='Legendary Actions'):
                 self.strLegendaryActions=value
+                self.legendaryActions=self.generateActions(value)
 
+    #handles creating actions for the monster class. 
+    #takes in the string representation of actions and returns an array of actionss
     def generateActions(self, stract):
         acts=[]
         for a in stract.split("</p>"):
