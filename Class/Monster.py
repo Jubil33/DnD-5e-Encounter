@@ -1,7 +1,9 @@
-#Monster class:
+from Class.action import action
+
+# Monster class:
 # this class is defined as a monster it will include a couple of fields such as stat and monster
 #Fields: Name, meta, AC, HP Speed, STR
-#
+ 
 class Monster:
     name=""
     ac=""
@@ -19,8 +21,10 @@ class Monster:
     senses=""
     languages=""
     traits=""
-    action=""
-    legendaryActions=""
+    strAction=""
+    actions=[]
+    strLegendaryActions=""
+    legendaryActions=[]
     img=""
     challenge=""
 
@@ -60,71 +64,21 @@ class Monster:
             elif(key=='Traits'):
                 self.traits=value
             elif(key=='Actions'):
-                self.action=value
+                self.strAction=value
+                self.actions=self.generateActions(value)
             elif(key=='Legendary Actions'):
-                self.legendaryActions=value
+                self.strLegendaryActions=value
 
-    #get name of monster
-    def getName(self):
-        return self.name
+    def generateActions(self, stract):
+        acts=[]
+        for a in stract.split("</p>"):
+            a=a+"</p>"
+            act = action(a)
+            if(act.name!="" and act.body!=""):
+                acts.append(action(a))
+                print(self.name, ': ' ,act.name, ': ', act.body)
+        return acts
 
-    def get_ac(self):
-        return self.ac
-
-    def get_hp(self):
-        return self.hp
-
-    def get_speed(self):
-        return self.speed
-
-    def get_strength(self):
-        return self.strength
-
-    def get_dexterity(self):
-        return self.dexterity
-
-    def get_constitution(self):
-        return self.constitution
-
-    def get_intelligence(self):
-        return self.intelligence
-
-    def get_wisdom(self):
-        return self.wisdom
-
-    def get_charisma(self):
-        return self.charisma
-
-    def get_savingThrows(self):
-        return self.savingThrows
-
-    def get_damageImmunities(self):
-        return self.damageImmunities
-
-    def get_skills(self):
-        return self.skills
-
-    def get_senses(self):
-        return self.senses
-
-    def get_languages(self):
-        return self.languages
-
-    def get_traits(self):
-        return self.traits
-
-    def get_action(self):
-        return self.action
-
-    def get_legendaryActions(self):
-        return self.legendaryActions
-
-    def get_img(self):
-        return self.img
-
-    def get_challenge(self):
-        return self.challenge
-    
     def __str__(self):
         return f"{self.name} {self.meta} {self.ac} {self.hp} {self.speed} {self.strength} {self.dexterity} {self.constitution} {self.intelligence} {self.wisdom} {self.charisma} {self.savingThrows} {self.skills} {self.damageImmunities} {self.senses} {self.challenge} {self.traits} {self.action} {self.legendaryActions} {self.img}"
 
