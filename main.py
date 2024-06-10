@@ -18,7 +18,7 @@ for item in data:
 
 for e in monsters:
     #(e.name, ' ', e.actions)
-    print(e.name, ' ', e.alignment)
+    print(e.name, 'strength:', e.strength,'|',e.calcStrMod(), 'dexterity:',e.dexterity, '|', e.calcDexMod())
     #for a in e.actions:
 
 '''

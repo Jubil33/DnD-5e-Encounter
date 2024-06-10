@@ -1,5 +1,5 @@
 from Class.action import action
-
+import math
 # Monster class:
 # this class is defined as a monster it will include a couple of fields such as stat and monster
 #Fields: Name, meta, AC, HP Speed, STR
@@ -44,17 +44,17 @@ class Monster:
             elif(key=='Speed'):
                 self.speed=value
             elif(key=='STR'):
-                self.strength=value
+                self.strength=int(value)
             elif(key=='DEX'):
-                self.dexterity=value
+                self.dexterity=int(value)
             elif(key=='CON'):
-                self.constitution=value
+                self.constitution=int(value)
             elif(key=='INT'):
-                self.intelligence=value
+                self.intelligence=int(value)
             elif(key=='WIS'):
-                self.wisdom=value
+                self.wisdom=int(value)
             elif(key=='CHA'):
-                self.charisma=value
+                self.charisma=int(value)
             elif(key=='Skills'):
                 self.skills=value
             elif(key=='Senses'):
@@ -82,6 +82,25 @@ class Monster:
             if(act.name!="" and act.body!=""):
                 acts.append(action(a))
         return acts
+
+    ##Calculates the strength modifie
+    def calcStrMod(self):
+        return math.trunc((self.strength-10)/2)
+    #calculates the dex modifier
+    def calcDexMod(self):
+        return math.trunc((self.dexterity-10)/2)
+    #calculates the con modifier
+    def calcConMod(self):
+        return math.trunc((self.constitution-10)/2)
+    #calculates the wis modifier
+    def calcWisMod(self):
+        return math.trunc((self.wisdom-10)/2)
+    #calculates the int modifier
+    def calcIntMod(self):
+        return math.trunc((self.intelligence-10)/2)
+    #calculates the cha modifier
+    def calcChaMod(self):
+        return math.trunc((self.charisma-10)/2)
 
     def __str__(self):
         return f"{self.name} {self.meta} {self.ac} {self.hp} {self.speed} {self.strength} {self.dexterity} {self.constitution} {self.intelligence} {self.wisdom} {self.charisma} {self.savingThrows} {self.skills} {self.damageImmunities} {self.senses} {self.challenge} {self.traits} {self.action} {self.legendaryActions} {self.img}"
