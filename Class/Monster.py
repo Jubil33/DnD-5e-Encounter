@@ -5,6 +5,8 @@ from Class.action import action
 #Fields: Name, meta, AC, HP Speed, STR
 class Monster:
     name=""
+    alignment=""
+    meta=""
     ac=""
     hp=""
     speed=""
@@ -34,6 +36,7 @@ class Monster:
                 self.name=value
             elif(key=='meta'):
                 self.meta=value
+                self.alignment=value.split(',')[1] #get/set the alignment
             elif(key=='Armor Class'):
                 self.ac=value
             elif(key=='Hit Points'):
@@ -78,7 +81,6 @@ class Monster:
             act = action(a)
             if(act.name!="" and act.body!=""):
                 acts.append(action(a))
-                print(self.name, ': ' ,act.name, ': ', act.body)
         return acts
 
     def __str__(self):

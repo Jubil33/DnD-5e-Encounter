@@ -18,8 +18,9 @@ for item in data:
 
 for e in monsters:
     #(e.name, ' ', e.actions)
-    for a in e.actions:
-        print(e.name,': ', a.name, ' ', a.body)
+    print(e.name, ' ', e.alignment)
+    #for a in e.actions:
+
 '''
     for a in e.strAction.split("</p>"):
         a=a+"</p>"
