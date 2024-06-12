@@ -18,7 +18,7 @@ for item in data:
 
 for e in monsters:
     #(e.name, ' ', e.actions)
-    print(e.name, 'challenge:',e.challenge, 'exp:',e.experiencePoints)
+    print(e.name, 'challenge:',e.size, 'exp:',e.monsterType)
     
     #for a in e.actions:
 

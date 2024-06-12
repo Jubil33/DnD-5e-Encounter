@@ -6,6 +6,8 @@ import math
 class Monster:
     name=""
     alignment=""
+    size=""
+    monsterType=""
     meta=""
     ac=""
     hp=""
@@ -30,7 +32,6 @@ class Monster:
     challenge=""
     experiencePoints=""
 
-
     #initialize monster, input a monster dictionary and loop through it's items setting the key and value for each of them
     def __init__(self,monsterDict):
         for key,value in monsterDict.items():
@@ -39,6 +40,8 @@ class Monster:
             elif(key=='meta'):
                 self.meta=value
                 self.alignment=value.split(',')[1] #get/set the alignment
+                self.size=value.split(' ')[0]
+                self.monsterType=value.split(' ')[1].replace(',','')
             elif(key=='Armor Class'):
                 self.ac=value
             elif(key=='Hit Points'):
@@ -87,7 +90,7 @@ class Monster:
                 acts.append(action(a))
         return acts
 
-    ##Calculates the strength modifie
+    ##Calculates the strength modifier
     def calcStrMod(self):
         return math.trunc((self.strength-10)/2)
     #calculates the dex modifier
