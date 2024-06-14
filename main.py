@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from Class.Monster import Monster
 from Class.action import action
+from Class.Encounter import Encounter
 import json
 
 #def __main__():
@@ -18,9 +19,12 @@ for item in data:
 
 for e in monsters:
     #(e.name, ' ', e.actions)
-    print(e.name, 'challenge:',e.size, 'exp:',e.monsterType)
+    print(e.name, 'challenge:',e.challenge, 'exp:',e.monsterType)
     
     #for a in e.actions:
+
+en = Encounter(monsters)
+print('hello',en.calculateChallenge())
 
 '''
     for a in e.strAction.split("</p>"):
@@ -50,6 +54,6 @@ for d in testData:
     
 #mon2 = Monster("asdf")
 
-print('hello!')
+#print('hello!')
 #print(mon1, '/n')
 #print(mon2)

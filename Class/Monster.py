@@ -29,7 +29,7 @@ class Monster:
     strLegendaryActions=""
     legendaryActions=[]
     img=""
-    challenge=""
+    challenge=0.0
     experiencePoints=""
 
     #initialize monster, input a monster dictionary and loop through it's items setting the key and value for each of them
@@ -69,6 +69,10 @@ class Monster:
             elif(key=='Challenge'):
                 vals = value.split('(')
                 self.challenge=vals[0]
+                if '/' in self.challenge:
+                    self.challenge=float(self.challenge[0])/float(self.challenge[2:])
+                else:
+                    self.challenge=float(self.challenge)
                 self.experiencePoints=vals[1].replace(')','')
             elif(key=='Traits'):
                 self.traits=value
