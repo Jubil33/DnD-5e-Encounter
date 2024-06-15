@@ -19,12 +19,12 @@ for item in data:
 
 for e in monsters:
     #(e.name, ' ', e.actions)
-    print(e.name, 'challenge:',e.challenge, 'exp:',e.monsterType)
+    print(e.name, 'armor class:',e.ac, 'hit points:',e.hp, 'senses:',e.senses)
     
     #for a in e.actions:
 
 en = Encounter(monsters)
-print('hello',en.calculateChallenge())
+print('total challenge Rating: ',en.calculateChallenge())
 
 '''
     for a in e.strAction.split("</p>"):

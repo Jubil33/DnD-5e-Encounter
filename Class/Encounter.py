@@ -4,8 +4,8 @@ from Class.action import action
 class Encounter:
     #include some parameters... What do the take for this... 
     monsters=[]
-    challengeRate=0
-    size=[]
+    #challengeRate=0
+    #size=[]
 
     def __init__(self, mons):
         #self.startingMonsters=mons
@@ -13,14 +13,13 @@ class Encounter:
     
     #filtering the list would be hard
     #take the filter that is available within this, then return it?
-    def updateMonsterList(self):
-        tempMons=[]
     
     def calculateChallenge(self):
         temp=0
         for mo in self.monsters:
             temp=temp+mo.challenge
         return temp
+    
     #Will add in the rollInititive function to this class so that it will work nicely!
     
 

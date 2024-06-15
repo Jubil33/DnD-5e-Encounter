@@ -9,9 +9,11 @@ class Monster:
     size=""
     monsterType=""
     meta=""
-    ac=""
-    hp=""
-    speed=""
+    acStr=""
+    ac=0
+    hp=0
+    hpStr=""
+    speed=[]
     strength=0
     dexterity=0
     constitution=0
@@ -21,7 +23,7 @@ class Monster:
     savingThrows=""
     damageImmunities=""
     skills=""
-    senses=""
+    senses=[]
     languages=""
     traits=""
     strAction=""
@@ -43,11 +45,13 @@ class Monster:
                 self.size=value.split(' ')[0]
                 self.monsterType=value.split(' ')[1].replace(',','')
             elif(key=='Armor Class'):
-                self.ac=value
+                self.acStr=value
+                self.ac=value.split(' ')[0]
             elif(key=='Hit Points'):
-                self.hp=value
+                self.hpStr=value
+                self.hp=value.split(' ')[0]
             elif(key=='Speed'):
-                self.speed=value
+                self.speed=value.split(', ')
             elif(key=='STR'):
                 self.strength=int(value)
             elif(key=='DEX'):
@@ -63,7 +67,7 @@ class Monster:
             elif(key=='Skills'):
                 self.skills=value
             elif(key=='Senses'):
-                self.senses=value
+                self.senses=value.split(' ,')
             elif(key=='Languages'):
                 self.languages=value
             elif(key=='Challenge'):
