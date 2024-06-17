@@ -2,8 +2,10 @@ from Class.Monster import Monster
 from Class.action import action
 
 class Encounter:
-    #include some parameters... What do the take for this... 
     monsters=[]
+    encounterDifficulty=0
+    players=[]
+    #Probably include a custom dictionary within this class to help track the monsters stats and actions within them. 
     #challengeRate=0
     #size=[]
 
@@ -12,7 +14,6 @@ class Encounter:
         self.monsters=mons
     
     #filtering the list would be hard
-    #take the filter that is available within this, then return it?
     
     def calculateChallenge(self):
         temp=0

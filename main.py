@@ -2,6 +2,7 @@
 from Class.Monster import Monster
 from Class.action import action
 from Class.Encounter import Encounter
+from Class.generateEncounter import generateEncounter
 import json
 
 #def __main__():
@@ -17,11 +18,16 @@ for item in data:
 
 #mon1 = Monster("asdf")
 
-for e in monsters:
+#for e in monsters:
     #(e.name, ' ', e.actions)
-    print(e.name, 'armor class:',e.ac, 'hit points:',e.hp, 'senses:',e.senses)
-    
+    #print(e.name, 'armor class:',e.ac, 'hit points:',e.hp, 'senses:',e.senses)
     #for a in e.actions:
+
+encHolder= generateEncounter(monsters)
+lowMonsters = encHolder.setChallengeRating(2)
+
+for m in lowMonsters:
+    print(m.name,'Challenge Rating: ',m.challenge)
 
 en = Encounter(monsters)
 print('total challenge Rating: ',en.calculateChallenge())
