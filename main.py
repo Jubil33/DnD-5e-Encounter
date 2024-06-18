@@ -14,8 +14,6 @@ monsters = []
 for item in data:
     monsters.append(Monster(item))
    
-#completed creating a monsters now I need to create some interpretors for meta, senses, dmg immunitites, traits, actions, legactions,
-
 #mon1 = Monster("asdf")
 
 #for e in monsters:
@@ -25,9 +23,24 @@ for item in data:
 
 encHolder= generateEncounter(monsters)
 lowMonsters = encHolder.setChallengeRating(2)
+chaEvil = encHolder.setAlignment("chaotic evil")
+neutral=encHolder.setAlignment('unaligned')
 
-for m in lowMonsters:
-    print(m.name,'Challenge Rating: ',m.challenge)
+enLowMonsters=Encounter(lowMonsters)
+print('lowMonsters',enLowMonsters.calculateChallenge())
+#for m in lowMonsters:
+    #print(m.name, 'alignment:', m.alignment, 'challenge:',m.challenge)
+
+EnChaEvil=Encounter(chaEvil)
+print('chaEvil',EnChaEvil.calculateChallenge())
+for m in chaEvil:
+    print(m.name, 'alignment:', m.alignment, 'challenge:',m.challenge)
+
+#print(neutral)
+asdf = Encounter(encHolder.filteredMonsters)
+print('asdf',asdf.calculateChallenge())
+for m in asdf.monsters:
+    print(m.name, 'alignment:', m.alignment, 'challenge:',m.challenge)
 
 en = Encounter(monsters)
 print('total challenge Rating: ',en.calculateChallenge())
