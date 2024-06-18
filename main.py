@@ -23,7 +23,7 @@ for item in data:
 
 encHolder= generateEncounter(monsters)
 lowMonsters = encHolder.setChallengeRating(2)
-chaEvil = encHolder.setAlignment("chaotic evil")
+smallMons = encHolder.setSize('Small')
 neutral=encHolder.setAlignment('unaligned')
 
 enLowMonsters=Encounter(lowMonsters)
@@ -31,16 +31,16 @@ print('lowMonsters',enLowMonsters.calculateChallenge())
 #for m in lowMonsters:
     #print(m.name, 'alignment:', m.alignment, 'challenge:',m.challenge)
 
-EnChaEvil=Encounter(chaEvil)
+EnChaEvil=Encounter(smallMons)
 print('chaEvil',EnChaEvil.calculateChallenge())
-for m in chaEvil:
-    print(m.name, 'alignment:', m.alignment, 'challenge:',m.challenge)
+for m in smallMons:
+    print(m.name, 'size:', m.size, 'challenge:',m.challenge)
 
 #print(neutral)
 asdf = Encounter(encHolder.filteredMonsters)
 print('asdf',asdf.calculateChallenge())
 for m in asdf.monsters:
-    print(m.name, 'alignment:', m.alignment, 'challenge:',m.challenge)
+    print(m.name, 'size:', m.size, 'challenge:',m.challenge)
 
 en = Encounter(monsters)
 print('total challenge Rating: ',en.calculateChallenge())
