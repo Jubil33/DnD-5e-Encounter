@@ -74,10 +74,19 @@ class generateEncounter:
             return self.runFilter()
         return []
 
-
     #removes a specified filter. 
-    def removeFilter(self,filterType,filter):
-        asdf=0
+    def removeAlignmentFilter(self,filter):
+        #remove alignment filter
+        if filter in self.chosenAlignment:
+            self.chosenAlignment.remove(filter)
+            return self.runFilter()
+        return self.filteredMonsters
+    
+    def removeSizeFilter(self,filter):
+        if filter in self.chosenSize:
+            self.chosenSize.remove(filter)
+            return self.runFilter()
+        return self.filteredMonsters
 
     #normalizes string to help with formatting    
     def normalizeString(self,norm):

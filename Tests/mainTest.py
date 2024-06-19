@@ -73,7 +73,9 @@ class mainTest:
         challenge2=Encounter(encHolder.setChallengeRating(2))
         alignmenta=Encounter(encHolder.setAlignment("chaotic good"))
         alignmentb=Encounter(encHolder.setAlignment("lawful good"))
+        remChaGood=Encounter(encHolder.removeAlignmentFilter('lawful good'))
         sizea=Encounter(encHolder.setSize('Medium'))
+        remMed=Encounter(encHolder.removeSizeFilter('Medium'))
         encHolder.resetFilters()
         monsList=Encounter(encHolder.monsters)
         alignmentc=Encounter(encHolder.setAlignment('unaligned'))
@@ -81,10 +83,13 @@ class mainTest:
         assert challenge2.calculateChallenge()==136.125
         assert alignmenta.calculateChallenge()==4.0
         assert alignmentb.calculateChallenge()==8.25
-        assert sizea.calculateChallenge()==6.25
+        assert remChaGood.calculateChallenge()==4.0
+        #print(sizea.calculateChallenge())
+        assert sizea.calculateChallenge()==2.0
+        print(remMed.calculateChallenge())
+        assert remMed.calculateChallenge()==4.0
         assert monsList.calculateChallenge()==1485.125
         assert alignmentc.calculateChallenge()==256.125
-
         #check the filter for each...
 
     def loadData():

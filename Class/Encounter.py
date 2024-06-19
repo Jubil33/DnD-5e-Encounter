@@ -12,17 +12,16 @@ class Encounter:
     def __init__(self, mons):
         #self.startingMonsters=mons
         self.monsters=mons
-    
-    #filtering the list would be hard
-    
+
+    #returns the total challenge for the encounter.   
     def calculateChallenge(self):
         temp=0
-        for mo in self.monsters:
-            temp=temp+mo.challenge
+        if self.monsters:
+            for mo in self.monsters:
+                temp=temp+mo.challenge
         return temp
     
     #Will add in the rollInititive function to this class so that it will work nicely!
-    
 
     #the question is how to add in the filter? I guess, for each filter chosen, you would need to update the array? 
     #Set the tempMons array.
