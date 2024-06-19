@@ -17,6 +17,9 @@ class generateEncounter:
     #this will reset the filteredMonsters list to include the parameters for filtering. 
     def resetFilters(self):
         self.filterMonsters=self.monsters
+        self.chosenAlignment=[]
+        self.chosenSize=[]
+        self.challengeRating=-1
 
     def runFilter(self):
         mons=self.monsters

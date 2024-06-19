@@ -43,15 +43,15 @@ class Monster:
                 self.name=value
             elif(key=='meta'):
                 self.meta=value
-                self.alignment=value.split(',')[1] #get/set the alignment
+                self.alignment=value.split(', ')[1] #get/set the alignment
                 self.size=value.split(' ')[0]
                 self.monsterType=value.split(' ')[1].replace(',','')
             elif(key=='Armor Class'):
                 self.acStr=value
-                self.ac=value.split(' ')[0]
+                self.ac=int(value.split(' ')[0])
             elif(key=='Hit Points'):
                 self.hpStr=value
-                self.hp=value.split(' ')[0]
+                self.hp=int(value.split(' ')[0])
             elif(key=='Speed'):
                 self.speed=value.split(', ')
             elif(key=='STR'):
