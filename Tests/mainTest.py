@@ -2,6 +2,7 @@ from Class.Monster import Monster
 from Class.action import action
 from Class.Encounter import Encounter
 from Class.generateEncounter import generateEncounter
+from Class.party import Party
 import json
 import unittest
 
@@ -10,16 +11,18 @@ import unittest
 class mainTest:
     monsters = []
     def __init__(self):
-        with open('data\srd_5e_monsters.json') as datafile:
-            data = json.load(datafile)
+        self.monsters=self.loadData()
 
-        for item in data:
-            self.monsters.append(Monster(item))
-        
-        self.checkGenerateEncounters(self.monsters)
-
-    def mainSpace(self):
+    def runAllTests(self):
         self.checkMonsters()
+        print()
+        self.checkParty()
+        print()
+        self.checkEncounters()
+        print()
+        self.checkGenerateEncounters()
+        print()
+        self.checkRecommendEncounters(True)
     
     #test monsters: doesn't test actions, traits, languages, skills
     def checkMonsters(self):
@@ -62,14 +65,22 @@ class mainTest:
         assert mons.hp==184
         assert mons.challenge==14
 
+        print('passed check Monsters')
+
     #test encounter. Takes in the monsters array and confirms that it returns the right value.
     def checkEncounters(self):
         encHolder= Encounter(self.monsters)
-        assert encHolder.calculateChallenge()==1485.125
+        assert encHolder.calculateMonsterChallenge()==1485.125
 
-    def checkGenerateEncounters(self,monsters):
-        encHolder= generateEncounter(monsters)
-        
+        encHolder.party=Party(4,9)
+        assert encHolder.calculateRating()== -1476.125
+
+        print('passed check Encounter')
+
+    def checkGenerateEncounters(self):
+        encHolder= generateEncounter(self.monsters)
+        encHolder.setParty(Party(4,9))
+
         challenge2=Encounter(encHolder.setChallengeRating(2))
         alignmenta=Encounter(encHolder.setAlignment("chaotic good"))
         alignmentb=Encounter(encHolder.setAlignment("lawful good"))
@@ -77,23 +88,84 @@ class mainTest:
         sizea=Encounter(encHolder.setSize('Medium'))
         remMed=Encounter(encHolder.removeSizeFilter('Medium'))
         encHolder.resetFilters()
+        #print(encHolder.chosenSize,encHolder.chosenAlignment)
         monsList=Encounter(encHolder.monsters)
         alignmentc=Encounter(encHolder.setAlignment('unaligned'))
+        
+        assert challenge2.calculateMonsterChallenge()==136.125
+        assert alignmenta.calculateMonsterChallenge()==4.0
+        assert alignmentb.calculateMonsterChallenge()==8.25
+        assert remChaGood.calculateMonsterChallenge()==4.0
+        #print(sizea.calculateMonsterChallenge())
+        assert sizea.calculateMonsterChallenge()==2.0
+        #print(remMed.calculateMonsterChallenge())
+        assert remMed.calculateMonsterChallenge()==4.0
+        assert monsList.calculateMonsterChallenge()==1485.125
+        assert alignmentc.calculateMonsterChallenge()==256.125
+        #check the filter for each
+        #encHolder.removeAlignmentFilter('chaotic good')
+        
+        print('passed check generated encounters')
 
-        assert challenge2.calculateChallenge()==136.125
-        assert alignmenta.calculateChallenge()==4.0
-        assert alignmentb.calculateChallenge()==8.25
-        assert remChaGood.calculateChallenge()==4.0
-        #print(sizea.calculateChallenge())
-        assert sizea.calculateChallenge()==2.0
-        print(remMed.calculateChallenge())
-        assert remMed.calculateChallenge()==4.0
-        assert monsList.calculateChallenge()==1485.125
-        assert alignmentc.calculateChallenge()==256.125
-        #check the filter for each...
 
-    def loadData():
-        asdf=0
+    def checkRecommendEncounters(self, prin):
+        ehNoParty=generateEncounter(self.monsters)
+        ehParty=generateEncounter(self.monsters)
+        ehNoParty.setChallengeRating(3)
+        print(ehParty.chosenSize,ehParty.chosenAlignment)
+        print(ehNoParty.chosenSize, ehNoParty.chosenAlignment)
+        ehParty.setParty(Party(4,9))
+        
+        rMon1 = ehParty.randomMonster(self.monsters)
+        print(rMon1.name,rMon1.challenge)
+        rMon1 = ehParty.randomMonster(self.monsters)
+        print(rMon1.name,rMon1.challenge)
+        rMon1 = ehParty.randomMonster(self.monsters)
+        print(rMon1.name,rMon1.challenge)
+        rMon1 = ehParty.randomMonster(self.monsters)
+        print(rMon1.name,rMon1.challenge)
+        #rmon=encHolderNoParty.randomMonster()
+
+        print('monster length from maintest',len(self.monsters))
+
+        encListParty = ehParty.recommendEncounters(10)
+        encListNoParty = ehNoParty.recommendEncounters(10)
+
+        if prin:
+            print()
+            print('encounter list, party')
+            for e in encListParty:
+                print(e, ' challenge rating: ', e.calculateMonsterChallenge())
+                #assert e.calculateMonsterChallenge() <=9
+            print()
+            print('encounter list, no party')
+            for e in encListNoParty:
+                print(e, ' challenge rating: ', e.calculateMonsterChallenge())
+
+        
+        print('passed reccomenend encounters')
+        
+        #for e in encList:
+            
+
+
+    def checkParty(self):
+        p1=Party(2,9)
+        p2=Party(0,9)
+        assert p1.calculateCapacity()==4.5
+        assert p2.calculateCapacity()==0
+
+        print('passed check party')
+    
+
+    def loadData(self):
+        monsters=[]
+        with open('data\srd_5e_monsters.json') as datafile:
+            data = json.load(datafile)
+
+        for item in data:
+            monsters.append(Monster(item))
+        return monsters
     
     def OldCodeInMain():
         '''
@@ -118,23 +190,23 @@ class mainTest:
         neutral=encHolder.setAlignment('unaligned')
 
         enLowMonsters=Encounter(lowMonsters)
-        print('lowMonsters',enLowMonsters.calculateChallenge())
+        print('lowMonsters',enLowMonsters.calculateMonsterChallenge())
         #for m in lowMonsters:
             #print(m.name, 'alignment:', m.alignment, 'challenge:',m.challenge)
 
         EnChaEvil=Encounter(smallMons)
-        print('chaEvil',EnChaEvil.calculateChallenge())
+        print('chaEvil',EnChaEvil.calculateMonsterChallenge())
         for m in smallMons:
             print(m.name, 'size:', m.size, 'challenge:',m.challenge)
 
         #print(neutral)
         asdf = Encounter(encHolder.filteredMonsters)
-        print('asdf',asdf.calculateChallenge())
+        print('asdf',asdf.calculateMonsterChallenge())
         for m in asdf.monsters:
             print(m.name, 'size:', m.size, 'challenge:',m.challenge)
 
         en = Encounter(monsters)
-        print('total challenge Rating: ',en.calculateChallenge())
+        print('total challenge Rating: ',en.calculateMonsterChallenge())
         '''
         '''
             for a in e.strAction.split("</p>"):
