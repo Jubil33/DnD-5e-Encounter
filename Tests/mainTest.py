@@ -103,11 +103,10 @@ class mainTest:
         assert monsList.calculateMonsterChallenge()==1485.125
         assert alignmentc.calculateMonsterChallenge()==256.125
         #check the filter for each
-        #encHolder.removeAlignmentFilter('chaotic good')
         
         print('passed check generated encounters')
 
-
+    #checks the recommend Encounter functionality. Prin(bool) if true will print out information into terminal.
     def checkRecommendEncounters(self, prin):
         ehNoParty=generateEncounter(self.monsters)
         ehParty=generateEncounter(self.monsters)
@@ -146,9 +145,8 @@ class mainTest:
         print('passed reccomenend encounters')
         
         #for e in encList:
-            
-
-
+    
+    #check party information    
     def checkParty(self):
         p1=Party(2,9)
         p2=Party(0,9)
