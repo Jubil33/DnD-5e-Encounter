@@ -29,8 +29,8 @@ def create_app(test_config=None):
     #Encounter blueprint    
     #from Class.generateEncounter import encounter
     #from Class.Encounter import generateEncounter
-    from .Encounter import Encounter
-    app.register_blueprint(encounter.bp)
+    from Encounter import EncounterController
+    app.register_blueprint(EncounterController.bp)
 
     #monster blueprint
 

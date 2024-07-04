@@ -1,8 +1,8 @@
-from Class.Monster import Monster
-from Class.action import action
-from Class.Encounter import Encounter
-from Class.generateEncounter import generateEncounter
-from Class.party import Party
+from Encounter.Class.Monster import Monster
+from Encounter.Class.action import action
+from Encounter.Class.Encounter import Encounter
+from Encounter.Class.generateEncounter import generateEncounter
+from Encounter.Class.party import Party
 import json
 import unittest
 
