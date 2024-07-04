@@ -1,6 +1,16 @@
 from Class.Encounter import Encounter
 from Class.party import Party
 import random
+import functools
+
+from flask import (
+    Blueprint, render_template #, flash, g, redirect, request, session, url_for
+)
+#from werkzeug.security import check_password_hash, generate_password_hash
+
+#from flaskr.db import get_db
+
+bp = Blueprint('encounter', __name__, url_prefix='/encounter')
 
 class generateEncounter:
     monsters=[]
@@ -14,6 +24,9 @@ class generateEncounter:
     party=Party
     encounters=[]
     
+    @bp.route('/encounter', methods=('GET', 'POST'))
+    def encounter():
+        return render_template('encounter.html')
 
     def __init__(self, monsters):
         self.monsters=monsters
@@ -148,8 +161,4 @@ class generateEncounter:
         #print('random monster:', m.name)
         return m #random.choice(mons) # mons[i]
         #loop through the monsters
-    
-
-    
-
     

@@ -1,0 +1,56 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - DnD-5e-Encounter</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<nav>
+  <h1> DnD-5e-Encounter </h1>
+  <!--ul>
+    {% if g.user %}
+      <li><span>{{ g.user['username'] }}</span>
+      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
+    {% else %}
+      <li><a href="{{ url_for('auth.register') }}">Register</a>
+      <li><a href="{{ url_for('auth.login') }}">Log In</a>
+    {% endif %}
+  </ul-->
+  <!-- NEED TO ADJUST FOR MENU ITEMS -->
+  <nav class="menu" id="iw3c">
+    <div class="menu-item" id="in8m">Social
+    </div>
+    <div class="menu-item" id="i49x">Items
+    </div>
+    <div class="menu-item" id="icdir">Battle
+    </div>
+    <div class="menu-item" id="iubec9">Home
+    </div>
+  </nav>
+</nav>
+
+<section class="content">    
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
+
+<footer class="footer-under" id="i68095">
+    <div id="i7toc">Created Using GrapeJS! yee haw all copyright reserved or something.
+    </div>
+    <div class="container-width">
+    </div>
+    <div class="copyright">
+      <div class="container-width">
+        <div class="made-with">
+          made with GrapesJS
+        </div>
+        <div class="foot-social-btns">facebook twitter linkedin mail
+        </div>
+        <div class="clearfix">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+

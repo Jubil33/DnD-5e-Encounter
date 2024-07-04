@@ -10,7 +10,6 @@ class Party:
     
     #calculate and return the party Capacity
     def calculateCapacity(self):
-        print('added a test')
         return self.playerCount*self.playerLvl/4
     
     
