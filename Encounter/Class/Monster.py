@@ -1,4 +1,4 @@
-from Encounter.Class.action import action
+from .action import action
 import math
 # Monster class:
 # this class is defined as a monster it will include a couple of fields such as stat and monster

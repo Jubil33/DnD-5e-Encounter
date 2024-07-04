@@ -1,6 +1,6 @@
-from Encounter.Class.Monster import Monster
-from Encounter.Class.action import action
-from Encounter.Class.party import Party
+from .Monster import Monster
+from .action import action
+from .party import Party
 
 class Encounter:
     monsters=[]

@@ -1,6 +1,7 @@
-from Encounter.Class.Encounter import Encounter
-from Encounter.Class.party import Party
+from .Encounter import Encounter
+from .party import Party
 import random
+'''
 import functools
 
 from flask import (
@@ -11,7 +12,7 @@ from flask import (
 #from flaskr.db import get_db
 
 bp = Blueprint('encounter', __name__, url_prefix='/encounter')
-
+'''
 class generateEncounter:
     monsters=[]
     enviornment=[]
@@ -24,9 +25,9 @@ class generateEncounter:
     party=Party
     encounters=[]
     
-    @bp.route('/encounter', methods=('GET', 'POST'))
-    def encounter():
-        return render_template('encounter.html')
+    #@bp.route('/encounter', methods=('GET', 'POST'))
+    #def encounter():
+    #    return render_template('encounter.html')
 
     def __init__(self, monsters):
         self.monsters=monsters

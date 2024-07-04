@@ -1,4 +1,4 @@
-from Encounter.Class.action import action
+from .action import action
 
 class Party:
     playerCount=0
