@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
 
-from flask import Flask
+from flask import Flask, render_template, redirect
 #from Class.Encounter import Encounter
 #from Class.generateEncounter import generateEncounter
 
@@ -26,18 +26,19 @@ def create_app(test_config=None):
     except OSError:
         pass
     
-    #Encounter blueprint    
-    #from Class.generateEncounter import encounter
-    #from Class.Encounter import generateEncounter
+    #Encounter blueprint
     from .Encounter import EncounterController
     app.register_blueprint(EncounterController.bp)
 
-    #monster blueprint
 
     # a simple page that says hello
     @app.route('/hello')
     def hello():
         return 'Hello, World! poop'
+    
+    @app.route('/') 
+    def index(): 
+        return redirect('/encounter')
 
     return app
     #Error: Failed to find Flask application or factory in module 'DnD-5e-Encounter.app'. Use 'DnD-5e-Encounter.app:name' to specify one.

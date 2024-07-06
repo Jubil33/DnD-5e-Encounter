@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Encounters{% endblock %}</h1>
+  <h1>{% block title %} Battle Encounters {% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
@@ -15,12 +15,60 @@
 
   <div class="gjs-row" id="i1ot2">
     <div class="gjs-cell" id="i5yxh">
-      <select type="text" class="FIlter" id="izb8f"><option value="opt1">Option 1</option><option value="opt2">Option 2</option></select>
+      <button id="filterbtn">Add Filter</button>
+      <select type="text" class="FIlter" id="izb8f">
+        <option value="alignment">alignment</option>
+        <option value="size">Size</option>
+        <option value="challengeRating">challengeRating</option>
+      </select>
+      <div></div>
+      <div></div>
+
+      <button id="sgEncBtn", onclick="sugFEncounters()">Suggest Encounters!</button>
+
     </div>
   </div>
+
   <div class="gjs-row" id="io3cs">
-    <div id="Encounter" class="gjs-cell Encounter">
+    <div id="encList" class="gjs-cell Encounter">
     </div>
   </div>
 </div>
+
+<div></div>
+<div></div>
+
+<script>
+  function sugFEncounters() {
+    document.getElementById("encList").innerHTML = "Hello World";
+    console.log('suggesting encounters')  
+
+    $.ajax({ 
+      url: '/suggestFightEncounters', 
+      type: 'POST', 
+      //contentType: 'application/json', 
+      dataType: 'html',
+      //data: JSON.stringify({ 'value': value }), 
+      success: function(result) { 
+          //document.getElementById('encList').innerHTML = response.result;
+          $("#encList").html(result)
+          console.log(result.data) 
+      }, 
+      error: function(error) { 
+          console.log(error); 
+      } 
+    }); 
+
+  }
+  /*
+  document.getElementById("sgEncBtn").encBtn.addEventListener("click", function() {
+    console.log('clicked suggest encounters');
+    //document.getElementById("encList").innerHTML = "Hello World";
+    //ideally the call will be if the encounter button is pressed then it will add in a generated user input. 
+
+
+  })
+  */
+</script>
+
 {% endblock %}

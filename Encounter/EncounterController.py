@@ -7,6 +7,7 @@ from .Class.generateEncounter import generateEncounter
 from .Class.party import Party
 import json
 import random
+import requests
 
 import functools
 
@@ -19,9 +20,10 @@ from flask import (
 
 bp = Blueprint('encounter', __name__, url_prefix='/')
 
+
 @bp.route('/encounter', methods=('GET', 'POST'))
 def encounter():
-    print('navigating to encounter')
+    #print('navigating to encounter')
     return render_template('Encounter/Encounter.html')
 
 def loadData():
@@ -33,4 +35,20 @@ def loadData():
         monsters.append(Monster(item))
     return monsters
 
-    
+monsters = loadData()
+
+@bp.route("/suggestFightEncounters", methods=['POST'])
+def suggestFightEncounter():
+    print('routed to suggest fight encounters')
+    bean = ""
+    recEnc = generateEncounter(monsters)
+    encs = recEnc.recommendEncounters(10)
+    for e in encs:
+        bean = bean + "<p>" + str(e) + "</p>"
+    return bean
+
+#load in the request
+
+#if(request.method == "POST"):
+#    asdf=0
+

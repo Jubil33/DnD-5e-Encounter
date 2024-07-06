@@ -162,4 +162,4 @@ class generateEncounter:
         #print('random monster:', m.name)
         return m #random.choice(mons) # mons[i]
         #loop through the monsters
-    
+      
