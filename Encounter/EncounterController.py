@@ -7,7 +7,6 @@ from .Class.generateEncounter import generateEncounter
 from .Class.party import Party
 import json
 import random
-import requests
 
 import functools
 
@@ -44,7 +43,7 @@ def suggestFightEncounter():
     recEnc = generateEncounter(monsters)
     encs = recEnc.recommendEncounters(10)
     for e in encs:
-        bean = bean + "<p>" + str(e) + "</p>"
+        bean = bean + '<div id="enc">' + str(e) + '</div>'
     return bean
 
 #load in the request

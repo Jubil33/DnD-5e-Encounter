@@ -21,12 +21,14 @@
         <option value="size">Size</option>
         <option value="challengeRating">challengeRating</option>
       </select>
+      
       <div></div>
       <div></div>
-
-      <button id="sgEncBtn", onclick="sugFEncounters()">Suggest Encounters!</button>
-
     </div>
+  </div>
+
+  <div>
+    <button id="sgEncBtn", onclick="sugFEncounters()">Suggest Encounters!</button>
   </div>
 
   <div class="gjs-row" id="io3cs">
@@ -41,7 +43,7 @@
 <script>
   function sugFEncounters() {
     document.getElementById("encList").innerHTML = "Hello World";
-    console.log('suggesting encounters')  
+    console.log('suggesting encounters')
 
     $.ajax({ 
       url: '/suggestFightEncounters', 

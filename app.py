@@ -37,7 +37,7 @@ def create_app(test_config=None):
         return 'Hello, World! poop'
     
     @app.route('/') 
-    def index(): 
+    def home(): 
         return redirect('/encounter')
 
     return app

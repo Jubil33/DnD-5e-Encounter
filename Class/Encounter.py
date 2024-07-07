@@ -1,6 +1,6 @@
-from .Monster import Monster
-from .action import action
-from .party import Party
+from Class.Monster import Monster
+from Class.action import action
+from Class.party import Party
 
 class Encounter:
     monsters=[]
@@ -35,7 +35,7 @@ class Encounter:
     def __str__(self) -> str:
         sti = 'Monsters: '
         for m in self.monsters:
-            sti=sti+m.name+ ' ' + str(m.challenge)+' '
+            sti=sti+m.name+str(m.challenge)+' '
         return sti
 
     #Will add in the rollInititive function to this class so that it will work nicely!
