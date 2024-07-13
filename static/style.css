@@ -167,13 +167,10 @@
     display: block;
   }
 
-  #filter {
-    
-  }
-
   #filForm {
     display: flex;
   }
+  
   @media (max-width: 768px){
     /*.gjs-row{
       flex-wrap:wrap;

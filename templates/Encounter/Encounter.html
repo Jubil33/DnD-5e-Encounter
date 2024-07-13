@@ -20,7 +20,7 @@
         
         <form id = "filForm">
           <div style="margin-left: 10px;">
-            <label for="alignment" class="filter">Alignment:</label>
+            <label for="alignment">Alignment:</label>
             <select id="alignment" class="filter" name="alignment" multiple>
                 <option value="unaligned">unaligned</option>
                 <option value="lawful good">lawful good</option>
@@ -35,7 +35,7 @@
             </select>
           </div>
           <div style="margin-left: 10px;">
-            <label for="size" class="filter"> Size:</label>
+            <label for="size">Size:</label>
             <select id="size" class="filter" name="size" multiple>
               <option value="Tiny">Tiny</option>
               <option value="Small">Small</option>
@@ -46,8 +46,8 @@
             </select>
           </div>
           <div style="margin-left: 10px;">
-            <label for="chalRate">challenge Rating:</label>
-            <select id="chalRate" name="chalRate" multiple>
+            <label for="chalRate">Challenge Rating:</label>
+            <select id="chalRate" class="filter" name="chalRate" multiple>
               <option value="0">0</option>
               <option value=".125">1/8</option>
               <option value=".25">1/4</option>
@@ -84,7 +84,9 @@
               <option value="30">30</option>
             </select>
           </div>
-
+          <!--div>
+            <button id="sgEncBtn", onclick="sugFEncounters()">Suggest Encounters!</button>
+          </div-->
 
         </form>
         <!--option value="alignment">alignment</option-->
@@ -99,7 +101,6 @@
       <div></div>
     </div>
   </div>
-
   <div>
     <button id="sgEncBtn", onclick="sugFEncounters()">Suggest Encounters!</button>
   </div>
@@ -115,18 +116,43 @@
 
 <script>
   function sugFEncounters() {
-    document.getElementById("encList").innerHTML = "Hello World";
-    console.log('suggesting encounters')
-    $.ajax({ 
-      url: '/suggestFightEncounters', 
-      type: 'POST', 
+    document.getElementById("encList").innerHTML = "oops there was an issue :.(";
+    //var dat = document.getElementById("filForm").value;
+    var fil = document.getElementsByClassName("filter");
+    //console.log("return from sugF",fil);
+    var dt=[];
+    for(var i=0;i<fil.length;i++) {
+      var ops = fil[i].options;
+      var selOpts = "";
+      for(var x=0;x<ops.length;x++) {
+        if(ops[x].selected) {
+          selOpts = selOpts + String(ops[x].value) + '|';
+          //console.log("op selected:",fil[i].id,"|",ops[x].value);
+        }
+      }
+      var key=String(fil[i].id);
+      //console.log("push into dt",fil[i].id,selOpts);
+      dt.push({key:fil[i].id,value:selOpts});
+      //dt.push({key:selOpts});
+
+      //dt = dt+ fil[i];
+      //console.log(fil[i]);
+    }
+    //size, alignment, chalRate
+    console.log('suggesting encounters');
+    $.ajax({
+      url: '/suggestFightEncounters',
+      type: 'POST',
+      //need to pass the data through this post. That way it can pass the info
       //contentType: 'application/json', 
       dataType: 'html',
-      //data: JSON.stringify({ 'value': value }), 
-      success: function(result) { 
+      data: JSON.stringify(dt), 
+      success: function(result) {
           //document.getElementById('encList').innerHTML = response.result;
+          //var encs = new
+          //for(var i=0;i<result.length;i++) {}
           $("#encList").html(result)
-          console.log(result.data) 
+          //console.log(result.data) 
       }, 
       error: function(error) { 
           console.log(error); 

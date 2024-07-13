@@ -69,6 +69,7 @@ class generateEncounter:
         if self.chosenSize:
             aMons=[]
             for s in self.chosenSize:
+                #print("appended new size:", s)
                 for m in mons:
                     if(self.normalizeString(s)==self.normalizeString(m.size)):
                         aMons.append(m)

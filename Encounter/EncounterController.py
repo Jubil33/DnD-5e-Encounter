@@ -11,7 +11,7 @@ import random
 import functools
 
 from flask import (
-    Blueprint, render_template #, flash, g, redirect, request, session, url_for
+    Blueprint, render_template, request #, flash, g, redirect, request, session, url_for
 )
 #from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -36,12 +36,45 @@ def loadData():
 
 monsters = loadData()
 
+#function that handles recommending encounters. takes in data from request form and adds it to the respective spot.
+#Currently only manages Size.
+def handleRecEncs(foam):
+    recEnc = generateEncounter(monsters)
+    for f in foam:
+        print(f)
+        asdf = f.replace("\"","").split("},{")
+        print("asdf",asdf)
+        for s in asdf:
+            s=s.replace("[","").replace("{","").replace("}","").replace("]","")
+            #print(s)
+            key=s[s.index("key")+4:s.index(",")]
+            value=s[s.index("value")+6 :]
+            #print("key:",key, value)
+            if(key=="size"):
+                val = value.split("|")
+                for v in val:
+                    recEnc.setSize(v)
+                    #print("size: ",v)
+                #print("size,", key, value)
+                
+            elif(key=="alignment"):
+                print("alignment,", key, value)
+            elif(key=="chalRate"):
+                val = value.split("|")
+                #for v in val:
+                
+                print("chalRate",key,value)
+            else:
+                print("something else")
+
+    return recEnc.recommendEncounters(10)
+
 @bp.route("/suggestFightEncounters", methods=['POST'])
 def suggestFightEncounter():
-    print('routed to suggest fight encounters')
+    #for r in request.form:
+    #    print('print req', r)
     bean = ""
-    recEnc = generateEncounter(monsters)
-    encs = recEnc.recommendEncounters(10)
+    encs = handleRecEncs(request.form)
     for e in encs:
         bean = bean + '<div id="enc">' + str(e) + '</div>'
     return bean
