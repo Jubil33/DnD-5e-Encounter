@@ -19,8 +19,10 @@ class generateEncounter:
     challengeRating=-1
     alignment=["unaligned","lawful good","neutral good","chaotic good","lawful neutral","neutral","chaotic neutral","lawful evil","neutral evil","chaotic evil"]
     sizeRange=['Tiny','Small','Medium','Large','Huge','Gargantuan']
+    challengeRatingRange=[.125,.25,.5,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
     chosenAlignment=[]
     chosenSize=[]
+    chosenChallenge=[]
     filteredMonsters=[]
     party=Party
     encounters=[]
@@ -49,12 +51,15 @@ class generateEncounter:
     def runFilter(self):
         mons=self.monsters
         #filter for challengeRating
-        if self.challengeRating != -1:
+        if self.chosenChallenge:
             aMons=[]
-            for m in mons:
-                if(self.challengeRating>=m.challenge):
-                    #print('appened mon in runfilter:',m.name,m.challenge)
-                    aMons.append(m)
+            for c in self.chosenChallenge:
+                print("chosen challenge:",c)
+                for m in mons:
+                    print("checking these:",c,m.challenge)
+                    if(float(c)==float(m.challenge)):
+                        print('appened mon in runfilter:',m.name,m.challenge)
+                        aMons.append(m)
             #print('amons len',len(aMons))
             mons=aMons
         #filter for alignment
@@ -83,7 +88,12 @@ class generateEncounter:
     #filter for the challengeRating, returns a list of creatures challenged at or below the cr rating.
     def setChallengeRating(self, cr):
         self.challengeRating=cr
-        return self.runFilter()#run filter and return result
+        #print("watcha",cr)
+        if float(cr) in self.challengeRatingRange:
+            #print("what",cr)
+            self.chosenChallenge.append(cr)
+            return self.runFilter()#run filter and return result
+        return []
 
     def setParty(self,party):
         self.party=party
@@ -127,20 +137,17 @@ class generateEncounter:
         monslist=[]
         encounterCapacity=5
         oldCR=self.challengeRating
-
         #print('filtered mons len',len(self.filteredMonsters))
-
         if self.party.playerLvl != 0:
             encounterCapacity=self.party.calculateCapacity()
             #print('encounterCapacity: ',encounterCapacity)
             monslist=self.setChallengeRating(encounterCapacity)
-
         enclist=[]
         #print('filtered mons len',len(self.filteredMonsters), 'mons list len:', len(monslist))
 
         for i in range(num):
             enc = Encounter([])
-            while True:
+            while True and self.filteredMonsters:
                 #monslist.append(self.randomMonster(self.filteredMonsters))
                 #I want to add in a random number generator that will occasionally stop the program...
                 enc.monsters.append(self.randomMonster(self.filteredMonsters))
@@ -159,8 +166,11 @@ class generateEncounter:
         #i=int(random.random() * len(mons))
         #print('random int: ', i, 'returns: ', mons[i].name)
         #i = rand.randint(0,len(mons)-1)
-        m=random.choice(mons)
+        if mons:
+            m=random.choice(mons)
+            return m
+    
         #print('random monster:', m.name)
-        return m #random.choice(mons) # mons[i]
+        return [] #random.choice(mons) # mons[i]
         #loop through the monsters
       

@@ -58,11 +58,16 @@ def handleRecEncs(foam):
                 #print("size,", key, value)
                 
             elif(key=="alignment"):
-                print("alignment,", key, value)
+                val = value.split("|")
+                for v in val:
+                    recEnc.setAlignment(v)
+                #print("alignment,", key, value)
             elif(key=="chalRate"):
                 val = value.split("|")
+                for v in val:
+                    if v != "":
+                        recEnc.setChallengeRating(v)
                 #for v in val:
-                
                 print("chalRate",key,value)
             else:
                 print("something else")
@@ -75,10 +80,12 @@ def suggestFightEncounter():
     #    print('print req', r)
     bean = ""
     encs = handleRecEncs(request.form)
-    for e in encs:
-        bean = bean + '<div id="enc">' + str(e) + '</div>'
+    if encs:
+        for e in encs:
+            bean = bean + '<div id="enc">' + str(e) + '</div>'  
+    else:
+        bean = '<div id="enc"> no monsters fit desccription </div>'
     return bean
-
 #load in the request
 
 #if(request.method == "POST"):
