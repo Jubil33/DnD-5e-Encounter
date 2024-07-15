@@ -40,6 +40,7 @@ class generateEncounter:
         self.party=Party(0,0)
         self.enviornment=[]
         self.encounters=[]
+        self.chosenChallenge=[]
 
     #reset the filteredMonsters list to original monsters, and set all filters to default. 
     def resetFilters(self):
@@ -54,11 +55,11 @@ class generateEncounter:
         if self.chosenChallenge:
             aMons=[]
             for c in self.chosenChallenge:
-                print("chosen challenge:",c)
+                #print("chosen challenge:",c)
                 for m in mons:
-                    print("checking these:",c,m.challenge)
+                    #print("checking these:",c,m.challenge)
                     if(float(c)==float(m.challenge)):
-                        print('appened mon in runfilter:',m.name,m.challenge)
+                        #print('appened mon in runfilter:',m.name,m.challenge)
                         aMons.append(m)
             #print('amons len',len(aMons))
             mons=aMons

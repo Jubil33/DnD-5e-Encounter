@@ -40,10 +40,11 @@ monsters = loadData()
 #Currently only manages Size.
 def handleRecEncs(foam):
     recEnc = generateEncounter(monsters)
+    recEnc.resetFilters()
     for f in foam:
-        print(f)
+        #print(f)
         asdf = f.replace("\"","").split("},{")
-        print("asdf",asdf)
+        #print("asdf",asdf)
         for s in asdf:
             s=s.replace("[","").replace("{","").replace("}","").replace("]","")
             #print(s)
@@ -68,7 +69,7 @@ def handleRecEncs(foam):
                     if v != "":
                         recEnc.setChallengeRating(v)
                 #for v in val:
-                print("chalRate",key,value)
+                #print("chalRate",key,value)
             else:
                 print("something else")
 
