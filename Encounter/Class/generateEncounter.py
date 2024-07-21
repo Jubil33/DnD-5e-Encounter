@@ -41,6 +41,7 @@ class generateEncounter:
         self.enviornment=[]
         self.encounters=[]
         self.chosenChallenge=[]
+        self.encounterCapacity=5
 
     #reset the filteredMonsters list to original monsters, and set all filters to default. 
     def resetFilters(self):
@@ -48,6 +49,7 @@ class generateEncounter:
         self.chosenAlignment=[]
         self.chosenSize=[]
         self.challengeRating=-1
+        self.encounterCapacity=5
 
     def runFilter(self):
         mons=self.monsters
@@ -81,6 +83,16 @@ class generateEncounter:
                         aMons.append(m)
             mons=aMons
 
+        calcCap=self.party.calculateCapacity()
+        print("calc cap:",calcCap)
+        if calcCap!=0:
+            aMons=[]
+            for m in mons:
+                if calcCap+2 >= float(m.challenge):
+                    print("filtered monster from party", m.name, m.challenge)
+                    aMons.append(m)
+            
+            mons=aMons
         #set the filtered Monsters to the temp array. 
         #print('Frm runFILTER: length of filteredMons,',len(self.filteredMonsters),'len of mons,',len(mons), 'len of monsters:',len(self.monsters))
         self.filteredMonsters=mons
@@ -133,16 +145,20 @@ class generateEncounter:
     def normalizeString(self,norm):
         return norm.replace(' ','').upper()
 
-    #returns encounters that are recommended for the party
+    def setEncounterCapacity(self, pts):
+        self.encounterCapacity=pts
+        return self.runFilter()
+
+    #returns number of encounters based on filters and party
     def recommendEncounters(self,num):
         monslist=[]
-        encounterCapacity=5
+        #encounterCapacity=5
         oldCR=self.challengeRating
         #print('filtered mons len',len(self.filteredMonsters))
-        if self.party.playerLvl != 0:
-            encounterCapacity=self.party.calculateCapacity()
+        if self.party.calculateCapacity() != 0:
+            #self.encounterCapacity=self.party.calculateCapacity()
             #print('encounterCapacity: ',encounterCapacity)
-            monslist=self.setChallengeRating(encounterCapacity)
+            monslist=self.setEncounterCapacity(self.party.calculateCapacity())
         enclist=[]
         #print('filtered mons len',len(self.filteredMonsters), 'mons list len:', len(monslist))
 
@@ -153,7 +169,7 @@ class generateEncounter:
                 #I want to add in a random number generator that will occasionally stop the program...
                 enc.monsters.append(self.randomMonster(self.filteredMonsters))
                 #print('encounter', i, enc)
-                if enc.calculateMonsterChallenge()>=encounterCapacity-1:
+                if enc.calculateMonsterChallenge()>=self.encounterCapacity-1:
                     enclist.append(enc)
                     break
             #grab a random monster from monster list, if it meets the challenge rating then return it, else pull another monster. 

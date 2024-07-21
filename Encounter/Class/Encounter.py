@@ -35,7 +35,7 @@ class Encounter:
     def __str__(self) -> str:
         sti = 'Monsters: '
         for m in self.monsters:
-            sti=sti+m.name+ ' ' + str(m.challenge)+' '+str(m.alignment)+' '
+            sti=sti+m.name+ ' ' + str(m.challenge) + ' ' #+' '+str(m.alignment)+' '
         return sti
 
     #Will add in the rollInititive function to this class so that it will work nicely!

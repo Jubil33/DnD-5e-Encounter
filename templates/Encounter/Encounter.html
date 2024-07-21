@@ -84,13 +84,55 @@
               <option value="30">30</option>
             </select>
           </div>
-          <!--div>
-            <button id="sgEncBtn", onclick="sugFEncounters()">Suggest Encounters!</button>
-          </div-->
-
+         
+          <div style="margin-left: 10px;">
+            <label for="pLevel">Player Level:</label>
+            <select id="pLevel" class="filter" name="pLevel">
+            <!--select id="pLevel" class="filter" name="pLevel"-->
+            
+              <option selected value="none">None</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+            </select>
+          </div>
+        
+          <div style="margin-left: 10px;">
+            <label for="pCount">Player Count:</label>
+            <select id="pCount" class="filter" name="pCount">
+              <option selected value="none"> None </option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+            </select>
+          </div> 
+        
         </form>
         <!--option value="alignment">alignment</option-->
-      </select>
     </div>
       <!--select type="text" class="filter" id="izb8f" multiple>
         <option value="alignment">alignment</option>
@@ -99,8 +141,9 @@
       </select-->
       <div></div>
       <div></div>
-    </div>
   </div>
+</div>
+  
   <div>
     <button id="sgEncBtn", onclick="sugFEncounters()">Suggest Encounters!</button>
   </div>
@@ -119,15 +162,18 @@
     document.getElementById("encList").innerHTML = "oops there was an issue :.(";
     //var dat = document.getElementById("filForm").value;
     var fil = document.getElementsByClassName("filter");
-    //console.log("return from sugF",fil);
+    console.log("return from sugF",fil);
     var dt=[];
+    
     for(var i=0;i<fil.length;i++) {
+      //try using fil[i].selectedOptions instead of loop through all options checking if they are selected.
       var ops = fil[i].options;
       var selOpts = "";
+      //not a big fan of this, but will have to research this later... 
       for(var x=0;x<ops.length;x++) {
         if(ops[x].selected) {
           selOpts = selOpts + String(ops[x].value) + '|';
-          //console.log("op selected:",fil[i].id,"|",ops[x].value);
+          console.log("op selected:",fil[i].id,"|",ops[x].value);
         }
       }
       var key=String(fil[i].id);
@@ -140,24 +186,28 @@
     }
     //size, alignment, chalRate
     console.log('suggesting encounters');
-    $.ajax({
-      url: '/suggestFightEncounters',
-      type: 'POST',
-      //need to pass the data through this post. That way it can pass the info
-      //contentType: 'application/json', 
-      dataType: 'html',
-      data: JSON.stringify(dt), 
-      success: function(result) {
-          //document.getElementById('encList').innerHTML = response.result;
-          //var encs = new
-          //for(var i=0;i<result.length;i++) {}
-          $("#encList").html(result)
-          //console.log(result.data) 
-      }, 
-      error: function(error) { 
-          console.log(error); 
-      } 
-    }); 
+    try {
+      $.ajax({
+        url: '/suggestFightEncounters',
+        type: 'POST',
+        //need to pass the data through this post. That way it can pass the info
+        //contentType: 'application/json', 
+        dataType: 'html',
+        data: JSON.stringify(dt), 
+        success: function(result) {
+            //document.getElementById('encList').innerHTML = response.result;
+            //var encs = new
+            //for(var i=0;i<result.length;i++) {}
+            $("#encList").html(result)
+            //console.log(result.data) 
+        }, 
+        error: function(error) { 
+            console.log(error); 
+        } 
+      }); 
+  } catch(err) {
+    console.log("an error occurred!", err)
+  }
 
   }
   /*

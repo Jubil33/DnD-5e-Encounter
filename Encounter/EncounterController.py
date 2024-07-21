@@ -70,20 +70,32 @@ def handleRecEncs(foam):
                         recEnc.setChallengeRating(v)
                 #for v in val:
                 #print("chalRate",key,value)
+            elif(key=="pCount" and "none" not in value):
+                #print(value)
+                val = value.replace("|","")
+                recEnc.party.playerCount=int(val)
+            elif(key=="pLevel" and "none" not in value):
+                #print(value)
+                val = value.replace("|","")
+                recEnc.party.playerLvl=int(val)
             else:
-                print("something else")
+                print("key:",key, "value:",value)
 
     return recEnc.recommendEncounters(10)
 
 @bp.route("/suggestFightEncounters", methods=['POST'])
 def suggestFightEncounter():
+    #print("got here")
     #for r in request.form:
     #    print('print req', r)
+    
     bean = ""
     encs = handleRecEncs(request.form)
+    
     if encs:
         for e in encs:
-            bean = bean + '<div id="enc">' + str(e) + '</div>'  
+            #print(str(e))
+            bean = bean + '<div id="enc">' + str(e) + '</div>'
     else:
         bean = '<div id="enc"> no monsters fit desccription </div>'
     return bean
