@@ -89,7 +89,6 @@
             <label for="pLevel">Player Level:</label>
             <select id="pLevel" class="filter" name="pLevel">
             <!--select id="pLevel" class="filter" name="pLevel"-->
-            
               <option selected value="none">None</option>
               <option value="0">0</option>
               <option value="1">1</option>
@@ -164,46 +163,35 @@
     var fil = document.getElementsByClassName("filter");
     console.log("return from sugF",fil);
     var dt=[];
-    
+    //loop through filters
     for(var i=0;i<fil.length;i++) {
-      //try using fil[i].selectedOptions instead of loop through all options checking if they are selected.
-      var ops = fil[i].options;
+      var ops = fil[i].selectedOptions;
       var selOpts = "";
-      //not a big fan of this, but will have to research this later... 
+      //loops through selected options from filter
       for(var x=0;x<ops.length;x++) {
-        if(ops[x].selected) {
-          selOpts = selOpts + String(ops[x].value) + '|';
-          console.log("op selected:",fil[i].id,"|",ops[x].value);
-        }
+        selOpts = selOpts + String(ops[x].value) + '|';
+        console.log("op selected:",fil[i].id,"|",ops[x].value);
       }
       var key=String(fil[i].id);
       //console.log("push into dt",fil[i].id,selOpts);
       dt.push({key:fil[i].id,value:selOpts});
-      //dt.push({key:selOpts});
-
-      //dt = dt+ fil[i];
-      //console.log(fil[i]);
     }
-    //size, alignment, chalRate
     console.log('suggesting encounters');
     try {
+      //call suggest Fight Encounters to generate the encounter list from server
       $.ajax({
         url: '/suggestFightEncounters',
         type: 'POST',
-        //need to pass the data through this post. That way it can pass the info
         //contentType: 'application/json', 
         dataType: 'html',
         data: JSON.stringify(dt), 
         success: function(result) {
-            //document.getElementById('encList').innerHTML = response.result;
-            //var encs = new
-            //for(var i=0;i<result.length;i++) {}
-            $("#encList").html(result)
-            //console.log(result.data) 
+          //upon success add the list of encounters to encList html
+          $("#encList").html(result)
         }, 
         error: function(error) { 
-            console.log(error); 
-        } 
+          console.log(error); 
+        }
       }); 
   } catch(err) {
     console.log("an error occurred!", err)

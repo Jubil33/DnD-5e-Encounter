@@ -36,8 +36,7 @@ def loadData():
 
 monsters = loadData()
 
-#function that handles recommending encounters. takes in data from request form and adds it to the respective spot.
-#Currently only manages Size.
+#function that handles recommending encounters. takes in data from request form and sets the filters for the encounter
 def handleRecEncs(foam):
     recEnc = generateEncounter(monsters)
     recEnc.resetFilters()
