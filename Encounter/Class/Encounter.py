@@ -1,6 +1,7 @@
 from .Monster import Monster
 from .action import action
 from .party import Party
+import json
 
 class Encounter:
     monsters=[]
@@ -37,6 +38,17 @@ class Encounter:
         for m in self.monsters:
             sti=sti+m.name+ ' ' + str(m.challenge) + ' ' #+' '+str(m.alignment)+' '
         return sti
+    
+    #creates a json object of the encounter code.
+    def encJson(self):
+        monsjson = []
+        for m in self.monsters:  
+            #add monster dictionary to monster list          
+            monsjson.append(m.monsterDict)
+
+        #takes in monster list and translates it to json
+        json_result_default = json.dumps(monsjson, default=lambda x: list(x) if isinstance(x, tuple) else str(x), indent=2)
+        return json_result_default
 
     #Will add in the rollInititive function to this class so that it will work nicely!
 

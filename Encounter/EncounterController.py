@@ -11,14 +11,14 @@ import random
 import functools
 
 from flask import (
-    Blueprint, render_template, request #, flash, g, redirect, request, session, url_for
+    Blueprint, render_template, request, session #, flash, g, redirect, request, session, url_for
 )
 #from werkzeug.security import check_password_hash, generate_password_hash
 
 #from flaskr.db import get_db
 
 bp = Blueprint('encounter', __name__, url_prefix='/')
-
+encountersArr=[]
 
 @bp.route('/encounter', methods=('GET', 'POST'))
 def encounter():
@@ -87,19 +87,43 @@ def suggestFightEncounter():
     #print("got here")
     #for r in request.form:
     #    print('print req', r)
-    
+    #encountersArr.clear()
     bean = ""
     encs = handleRecEncs(request.form)
+    jsonEncs = ""
     
     if encs:
+        i =0
         for e in encs:
             #print(str(e))
+            #encountersArr.append(e)
+            jsonEncs = jsonEncs + '{id = ' + i + ', ' + e.encJson() + '}'
             bean = bean + '<div id="enc">' + str(e) + '</div>'
+            i+=1
     else:
         bean = '<div id="enc"> no monsters fit desccription </div>'
+    
+    #this is where the function is throwing an error. I need to convert the array to json... 
+    session['combatEncounters'] = jsonEncs
     return bean
 #load in the request
 
 #if(request.method == "POST"):
 #    asdf=0
 
+@bp.route('/uniqueEncounter/<variable>', methods=['GET'])
+def uniqueEncounter(variable):
+    #print(variable)
+    s = ""
+    try: 
+        encs=session['combatEncounters']
+    except:
+        suggestFightEncounter()
+        encs=session['combatEncounters']
+
+    #take in the encounter 
+    #for x in encs:
+    s = "<div >aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa </div>" 
+    print(encs)
+    #print(s)
+    return render_template('Encounter/uniqueEncounter.html',variable = variable, data = s )
